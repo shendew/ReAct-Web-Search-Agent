@@ -8,7 +8,8 @@ from prompt import SYSTEM_PROMPT
 from tools import TOOLS
 
 load_dotenv()
-os.environ["GOOGLE_API_KEY"] = "AIzaSyCEUnrVHiz0rjvOduF2mMk4wYFjqLJqmO0"
+if "GOOGLE_API_KEY" not in os.environ:
+    raise ValueError("GOOGLE_API_KEY environment variable not set. Please set it in your .env file.")
 
 llm = ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite",temperature=0)
 agent = create_react_agent(llm,TOOLS, SYSTEM_PROMPT)
